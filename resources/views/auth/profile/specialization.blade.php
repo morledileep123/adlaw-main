@@ -44,20 +44,20 @@
             @csrf
             <div class="form-group">
                 <div class="col-sm-12">
-                    <label for="inputName" class="col-sm-5 col-form-label">Specialization</label>
-                    <div class="col-sm-12">
-                      <select  multiple="multiple" class="form-control select2" name="spcl_code[]" data-placeholder="Select Specialization">
-                        @foreach ($spclMast as $specialize) 
-                        <option value="{{$specialize->spcl_code}}">
-                        {{$specialize->spcl_desc}}
-                        </option>
-                        @endforeach
-                      </select>
-                      @if ($errors->has('spcl_code'))
-                        <span class="text-danger">{{ $errors->first('spcl_code') }}</span>
-                      @endif
-                    </div>
+                  <label for="inputName" class="col-sm-5 col-form-label">Specialization</label>
+                  <div class="col-sm-12">
+                    <select  multiple="multiple" class="form-control select2" name="spcl_code[]" data-placeholder="Select Specialization">
+                      @foreach ($spclMast as $specialize) 
+                      <option value="{{$specialize->spcl_code}}">
+                      {{$specialize->spcl_desc}}
+                      </option>
+                      @endforeach
+                    </select>
+                    @if ($errors->has('spcl_code'))
+                      <span class="text-danger">{{ $errors->first('spcl_code') }}</span>
+                    @endif
                   </div>
+                </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">

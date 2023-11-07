@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Countries</h1>
+            <h1 class="m-0">States</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <div class="card-header" style="padding:4px; border:none;">
-                <a href="{{ route('add.country') }}" class="btn btn-success btn-sm">Add Country</a>
+                <a href="{{ route('add.state') }}" class="btn btn-success btn-sm">Add State</a>
                 <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Back</a>
               </div>
             </ol>
@@ -36,27 +36,27 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
+            <th>State code</th>
+            <th>State name</th>
             <th>Country code</th>
-            <th>Country Name</th>
-            <th>Iso3</th>
-            <th>Phone Code</th>
+            <th>Country name</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
-          @foreach ($countryMast as $details)
+          @foreach ($allStates as $details)
           <tr>
+            <td>{{ $details->state_code }}</td>
+            <td>{{ $details->state_name }}</td>
             <td>{{ $details->country_code }}</td>
             <td>{{ $details->country_name }}</td>
-            <td>{{ $details->iso3 }}</td>
-            <td>{{ $details->phone_code }}</td>
             <td>
             <div class="btn-group">
               <button type="button" class="btn btn-secondary dropdown-toggle dropdown-icon btn-xs" data-toggle="dropdown">Action
               </button>
               <div class="dropdown-menu">                           
-                <a class="dropdown-item" href="{{ route('edit.country', $details->country_code) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-                <a class="dropdown-item" href="{{ route('delete.country', $details->country_code) }}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>                        
+                <a class="dropdown-item" href="{{ route('edit.state', $details->state_code) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                <a class="dropdown-item" href="{{ route('delete.state', $details->state_code) }}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>                        
               </div>
             </div>
             </td>
@@ -65,10 +65,10 @@
           </tbody>
           <tfoot>
           <tr>
+            <th>State code</th>
+            <th>State name</th>
             <th>Country code</th>
-            <th>Country Name</th>
-            <th>Iso3</th>
-            <th>Phone Code</th>
+            <th>Country name</th>
             <th>Action</th>
           </tr>
           </tfoot>

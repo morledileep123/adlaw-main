@@ -88,16 +88,16 @@ img {
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('profile.pic.update', ['id'=>Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('admin.profile.pic.update', ['id'=>$userProfile->user_id]) }}" method="post" enctype="multipart/form-data">
              @csrf
             <div class="card-body">
               
               <div class="form-group">
                 <label>Profile Pic</label>
-                <input type="hidden" name="id" id="id" class="form-control" value="{{ $profilePic->user_id }}">
+                <input type="hidden" name="id" id="id" class="form-control" value="{{ $userProfile->user_id }}">
                 <input type="file" name="photo_path" id="image" class="form-control"><br>
-                @if($profilePic->photo_path !=null)
-                <img src="/public/profile-image/{{ $profilePic->photo_path }}" id="preview-image-before-upload" width="150px" height="150px">
+                @if($userProfile->photo_path !=null)
+                <img src="/public/profile-image/{{ $userProfile->photo_path }}" id="preview-image-before-upload" width="150px" height="150px">
                 @else
                 <img src="{{ asset('dist/img/user2-160x160.jpg') }}" id="preview-image-before-upload" class="img-square elevation-2" alt="User Image">
                 @endif

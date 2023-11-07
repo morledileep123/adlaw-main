@@ -41,13 +41,13 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                                <form class="form-horizontal" method="POST" action="{{ route('basicinfoUpdate', ['id'=>$basicInfoData->user_id]) }}">
+                                <form class="form-horizontal" method="POST" action="{{ route('admin.basicinfo.update', ['id'=>Auth::user()->id]) }}">
                                     @csrf
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <label for="inputName" class="col-sm-5 col-form-label">First Name</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" class="form-control" id="id" value="{{ $basicInfoData->user_id}}" name="user_id">
+                                                <input type="hidden" class="form-control" id="id" value="{{ $basicInfoData->id}}" name="user_id">
                                                 <input type="text" class="form-control" id="inputName" value="{{ $basicInfoData->firstname}}" name="firstname">
                                             </div>
                                         </div>

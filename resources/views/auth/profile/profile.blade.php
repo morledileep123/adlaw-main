@@ -35,8 +35,8 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center mb-2">
-                  @if(!empty($userProfile) && $userProfile[0]->photo_path !='')
-                  <a href="{{ route('dashboard') }}"><img class="profile-user-img img-fluid img-circle" src="{{ url('public/profile-image/'.$userProfile[0]->photo_path) }}" alt="User profile picture"></a>
+                  @if(!empty($profilePic) && $profilePic->photo_path !='')
+                  <a href="#"><img class="profile-user-img img-fluid img-circle" src="{{ url('public/profile-image/'.$profilePic->photo_path) }}" alt="User profile picture"></a>
                   @else
                   <a href="{{ route('dashboard') }}"><img class="profile-user-img img-fluid img-circle" src="{{ asset('dist/img/user2-160x160.jpg') }}" alt="User profile picture"></a>
                   @endif
@@ -58,15 +58,15 @@
                 <h4>Basic Information <a href="{{ route('basicinfoEdit', ['id'=>Auth::user()->id]) }}" style="float:right">Edit</a></h4>
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
-                    @if (!empty($userProfile) && count($userProfile) > 0)
-                      <p class="text-muted text-left"><b>User Name : {{ $userProfile[0]->firstname}}&nbsp {{ $userProfile[0]->middlename ?? null}}&nbsp{{ $userProfile[0]->lastname ?? null}}</b></p>
-                      <p class="text-muted text-left"><b>Date Of Birth : {{ $userProfile[0]->dob}}</b></p>
-                      <p class="text-muted text-left"><b>Gender : {{ $userProfile[0]->gender}}</b></p>
+                    @if (!empty($userProfile) && !empty($userProfile->user_id) )
+                      <p class="text-muted text-left"><b>User Name : {{ $userProfile->firstname}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}</b></p>
+                      <p class="text-muted text-left"><b>Date Of Birth : {{ $userProfile->dob}}</b></p>
+                      <p class="text-muted text-left"><b>Gender : {{ $userProfile->gender}}</b></p>
                       <p class="text-muted text-left"><b>Email : {{ $user->email }}</b></p>
                       <p class="text-muted text-left"><b>Mobile number : {{ $user->mobile }}</b></p>
-                      <p class="text-muted text-left"><b>Country Name : {{ $userProfile[0]->country_name }}</b></p>
-                      <p class="text-muted text-left"><b>State Name : {{ $userProfile[0]->state_name}}</b></p>
-                      <p class="text-muted text-left"><b>City Name : {{ $userProfile[0]->city_name}}</b></p>
+                      <p class="text-muted text-left"><b>Country Name : {{ $userProfile->country_name }}</b></p>
+                      <p class="text-muted text-left"><b>State Name : {{ $userProfile->state_name}}</b></p>
+                      <p class="text-muted text-left"><b>City Name : {{ $userProfile->city_name}}</b></p>
                     @else
                     <p class="text-muted text-left"><b>User Name : {{ Auth::user()->user_name }}</b></p>
                     <p class="text-muted text-left"><b>Date Of Birth : </b></p>
@@ -137,12 +137,12 @@
                 <h4>Education <a href="{{ route('qualificationEdit', ['id'=>Auth::user()->id]) }}" style="float:right">Edit</a></h4>
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
-                  @if (!empty($qualification) && count($qualification) > 0)
-                  <p class="text-muted text-left"><b>Graduation : {{ $qualification[0]->qual_catg_desc}}</b></p>
-                  <p class="text-muted text-left"><b>Course : {{ $qualification[0]->qual_desc}}</b></p>
-                  <p class="text-muted text-left"><b>Passsing Year : {{ $qualification[0]->pass_year}}</b></p>
-                  <p class="text-muted text-left"><b>Percentage : {{ $qualification[0]->pass_perc}}</b></p>
-                  <p class="text-muted text-left"><b>Division : {{ $qualification[0]->pass_division}}</b></p>
+                  @if (!empty($qualification) && !empty($qualification->user_id))
+                  <p class="text-muted text-left"><b>Graduation : {{ $qualification->qual_catg_desc}}</b></p>
+                  <p class="text-muted text-left"><b>Course : {{ $qualification->qual_desc}}</b></p>
+                  <p class="text-muted text-left"><b>Passsing Year : {{ $qualification->pass_year}}</b></p>
+                  <p class="text-muted text-left"><b>Percentage : {{ $qualification->pass_perc}}</b></p>
+                  <p class="text-muted text-left"><b>Division : {{ $qualification->pass_division}}</b></p>
                   @else
                   <p class="text-muted text-left"><b>Graduation : </b></p>
                   <p class="text-muted text-left"><b>Course : </b></p>

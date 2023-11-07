@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Countries</h1>
+            <h1 class="m-0">Packages</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <div class="card-header" style="padding:4px; border:none;">
-                <a href="{{ route('add.country') }}" class="btn btn-success btn-sm">Add Country</a>
+                <a href="{{ route('add.package') }}" class="btn btn-success btn-sm">Add package</a>
                 <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Back</a>
               </div>
             </ol>
@@ -36,27 +36,27 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>Country code</th>
-            <th>Country Name</th>
-            <th>Iso3</th>
-            <th>Phone Code</th>
+            <th>Package id</th>
+            <th>Package desception</th>
+            <th>Package valid day</th>
+            <th>Rate</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
-          @foreach ($countryMast as $details)
+          @foreach ($allPackages as $details)
           <tr>
-            <td>{{ $details->country_code }}</td>
-            <td>{{ $details->country_name }}</td>
-            <td>{{ $details->iso3 }}</td>
-            <td>{{ $details->phone_code }}</td>
+            <td>{{ $details->package_id }}</td>
+            <td>{{ $details->package_desc }}</td>
+            <td>{{ $details->valid }} &nbsp Day</td>
+            <td>{{ $details->rate }}</td>
             <td>
             <div class="btn-group">
               <button type="button" class="btn btn-secondary dropdown-toggle dropdown-icon btn-xs" data-toggle="dropdown">Action
               </button>
               <div class="dropdown-menu">                           
-                <a class="dropdown-item" href="{{ route('edit.country', $details->country_code) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-                <a class="dropdown-item" href="{{ route('delete.country', $details->country_code) }}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>                        
+                <a class="dropdown-item" href="{{ route('edit.package', $details->package_id) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                <a class="dropdown-item" href="{{ route('delete.package', $details->package_id) }}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>                        
               </div>
             </div>
             </td>
@@ -65,10 +65,10 @@
           </tbody>
           <tfoot>
           <tr>
-            <th>Country code</th>
-            <th>Country Name</th>
-            <th>Iso3</th>
-            <th>Phone Code</th>
+            <th>Package id</th>
+            <th>Package desception</th>
+            <th>Package valid day</th>
+            <th>Rate</th>
             <th>Action</th>
           </tr>
           </tfoot>

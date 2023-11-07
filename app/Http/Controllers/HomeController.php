@@ -17,8 +17,7 @@ class HomeController extends Controller
     public function dashboard()
     {
          $userId = Auth::user()->id;
-         $profilePic = ProfileDetails::where('user_id', $userId)->get();
-         $userProfile = ProfileDetails::where('user_id', $userId)->get();
+         $userProfile = ProfileDetails::where('user_id', $userId)->get()->first();
          $users = User::all();
          $allUsers = count($users);
          $userTypeMast = UserTypeMast::all();
@@ -34,7 +33,7 @@ class HomeController extends Controller
          $countryMast = CountryMast::all();
          $allCountryMast = count($countryMast);
          
-        return view('dashboard', compact('userProfile', 'profilePic', 'allUsers', 'allStateMast', 'allCityMast', 'allCountryMast'));
+        return view('dashboard', compact('userProfile', 'allUsers', 'allStateMast', 'allCityMast', 'allCountryMast'));
     }
 
     public function viewHome(Request $request)
@@ -56,19 +55,6 @@ class HomeController extends Controller
          $cityData = ProfileDetails::where(['state_code'=>$state, 'city_name'=> $city_name])->get();
         return view('usedata', compact('cityData'));
     }
-
-    // public function viewCountry(){
-    //     $countryMast = countryMast::all();
-    //     return view('auth.country.countries', compact('countryMast'));
-    // }
-    // public function viewState(){
-    //     $stateMast = StateMast::all();
-    //     return view('auth.state.states', compact('stateMast'));
-    // }
-    // public function viewCity(){
-    //     $cityMast = CityMast::all();
-    //     return view('auth.city.cities', compact('cityMast'));
-    // }
 
     
 }

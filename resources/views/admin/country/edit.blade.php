@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Cities</h1>
+            <h1 class="m-0"></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li><a href="#" class="btn btn-secondary btn-sm">Home</a>&nbsp</li>
-              <li><a href="#" class="btn btn-primary btn-sm">Add city</a></li>
+              <li><a href="{{ route('dashboard') }}" class="btn btn-secondary btn-sm">Home</a>&nbsp</li>
+              <li><a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">Back</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,47 +27,53 @@
    
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">All Cities</h3>
+        <h3 class="card-title"></h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add new state</h3>
+            <h3 class="card-title">Edit country</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form>
+          <form action="{{ route('update.country', $countryEdit->country_code) }}" method="post">
+            @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <input type="hidden" class="form-control" name="country_code" id="country_code" value="{{ $countryEdit->country_code }}">
+                <label for="exampleInputCountry">Country name</label>
+                <input type="text" class="form-control" name="country_name" value="{{ $countryEdit->country_name }}">
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="exampleInputIso2">Iso2</label>
+                <input type="text" class="form-control" name="iso2" value="{{ $countryEdit->iso2 }}">
               </div>
               <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                  </div>
-                  <div class="input-group-append">
-                    <span class="input-group-text">Upload</span>
-                  </div>
-                </div>
+                <label for="exampleInputIso3">Iso3</label>
+                <input type="text" class="form-control" name="iso3" value="{{ $countryEdit->iso3 }}">
               </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              <div class="form-group">
+                <label for="exampleInputPhone">Phone code</label>
+                <input type="text" class="form-control" name="phone_code" value="{{ $countryEdit->phone_code }}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" value="{{ $countryEdit->nationality }}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputCurrency">Currency code</label>
+                <input type="text" class="form-control" name="currency_code" value="{{ $countryEdit->currency_code }}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputCurrency">Currency name</label>
+                <input type="text" class="form-control" name="currency_name" value="{{ $countryEdit->currency_name }}">
               </div>
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
           </form>
         </div>

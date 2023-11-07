@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-
+<link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 @section("content")
   <!-- ContentWrapper. Contains page content -->
@@ -33,33 +33,26 @@
       <div class="card-body">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add new state</h3>
+            <h3 class="card-title">Add new education category</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('store.state') }}" method="post">
+          <form action="{{ route('store.educatg') }}" method="post">
             @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Country name</label>
-                <select  class="form-control" name="country_code">
-                <option value="">--select collect--</option>
-                  @foreach ($getCountry as $country) 
-                  <option value="{{$country->country_code}}">
-                  {{$country->country_name}}
-                  </option>
-                  @endforeach
-                </select>
-                @if ($errors->has('country_code'))
-                  <span class="text-danger">{{ $errors->first('country_code') }}</span>
-                @endif
+                <label for="exampleInputEducation">Education category name</label>
+                <input type="text" class="form-control" name="qual_catg_desc" id="exampleInputEducation" placeholder="Enter Education catg name">
               </div>
+              @if ($errors->has('qual_catg_desc'))
+                <span class="text-danger">{{ $errors->first('qual_catg_desc') }}</span>
+              @endif
               <div class="form-group">
-                <label for="exampleInputstate">state name</label>
-                <input type="text" class="form-control" name="state_name" id="exampleInputstate" placeholder="Enter state name">
+                <label for="exampleInputShort">Short desription</label>
+                <input type="text" class="form-control" name="shrt_desc" id="exampleInputShort" placeholder="Enter short name">
               </div>
-              @if ($errors->has('state_name'))
-                <span class="text-danger">{{ $errors->first('state_name') }}</span>
+              @if ($errors->has('shrt_desc'))
+                <span class="text-danger">{{ $errors->first('shrt_desc') }}</span>
               @endif
             </div>
             <!-- /.card-body -->
@@ -77,6 +70,12 @@
   </div>
  @endsection
  @section("script")
+ <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>
  <script>
   $(function () {
     $('#example1').DataTable().destroy();

@@ -43,31 +43,25 @@
           <!-- form start -->
           <form action="{{ route('update.prectecing.court', ['id'=>Auth::user()->id]) }}" method="post">
              @csrf
-            <div class="card-body">
+             <div class="card-body">
               <div class="form-group">
                 <label>Court Type Name</label>
                 <select class="form-control" id="court-dropdown" name="court_type_code">
-                  @php $seen = []; @endphp
-                  @foreach ($courtEdit as $courtUpdate)
-                      @foreach ($getCourt as $court)
-                          @if (!in_array($court->court_type_code, $seen))
-                              <option value="{{ $court->court_type_code }}" @if ($court->court_type_code == $courtUpdate->court_type_code) selected @endif>
-                                  {{ $court->court_type_desc }}
-                              </option>
-                              @php $seen[] = $court->court_type_code; @endphp
-                          @endif
-                      @endforeach
+                  @foreach ($getCourt as $court)
+                      <option value="{{ $court->court_type_code }}" @if ($court->court_type_code == $courtEdit->court_type_code) selected @endif>
+                          {{ $court->court_type_desc }}
+                      </option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group">
                 <label>All Practicing Courts</label>
                   <select multiple="multiple" class="form-control select2" id="courtname-dropdown" name="court_code[]" data-placeholder="Select court">
-                    @foreach ($courtEdit as $courtUpdate) 
-                      @foreach ($getCourt as $court) 
-                      <option value="{{ $court->court_code }}" @if ($court->court_code == $courtUpdate->court_code) selected @endif>{{ $court->court_code }}</option>
-                      @endforeach
+                  @foreach ($editCourtData as $courtUpdate) 
+                    @foreach ($getCourtMast as $court) 
+                      <option value="{{ $court->court_code }}" @if ($court->court_code == $courtUpdate->court_code) selected @endif>{{ $court->court_name}}</option>
                     @endforeach
+                  @endforeach
                   </select>
               </div>
                <!-- /.card-body -->

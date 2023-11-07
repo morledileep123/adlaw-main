@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-
+<link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 @section("content")
   <!-- ContentWrapper. Contains page content -->
@@ -33,39 +33,30 @@
       <div class="card-body">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add new state</h3>
+            <h3 class="card-title">Edit spcl</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('store.state') }}" method="post">
+          <form action="{{ route('update.spcl', $spclEdit->spcl_code) }}" method="post">
             @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Country name</label>
-                <select  class="form-control" name="country_code">
-                <option value="">--select collect--</option>
-                  @foreach ($getCountry as $country) 
-                  <option value="{{$country->country_code}}">
-                  {{$country->country_name}}
-                  </option>
-                  @endforeach
-                </select>
-                @if ($errors->has('country_code'))
-                  <span class="text-danger">{{ $errors->first('country_code') }}</span>
-                @endif
+                <label for="exampleInputSpcl">Spcl name</label>
+                <input type="hidden" class="form-control" name="spcl_code" id="Spcl" value="{{ $spclEdit->spcl_code }}">
+                <input type="text" class="form-control" name="spcl_desc" value="{{ $spclEdit->spcl_desc }}">
               </div>
               <div class="form-group">
-                <label for="exampleInputstate">state name</label>
-                <input type="text" class="form-control" name="state_name" id="exampleInputstate" placeholder="Enter state name">
+                <label for="exampleInputShort">Short desc</label>
+                <textarea id="summernote" class="summernote form-control" name="short_desc">{{ $spclEdit->short_desc }}</textarea>
               </div>
-              @if ($errors->has('state_name'))
-                <span class="text-danger">{{ $errors->first('state_name') }}</span>
-              @endif
+              <div class="form-group">
+                <label for="exampleInputDesription">Desription</label>
+                <textarea id="summernote" class="summernote form-control" name="description">{{ $spclEdit->description }}</textarea>
+              </div>
             </div>
             <!-- /.card-body -->
-
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
           </form>
         </div>
@@ -77,6 +68,12 @@
   </div>
  @endsection
  @section("script")
+ <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>
  <script>
   $(function () {
     $('#example1').DataTable().destroy();

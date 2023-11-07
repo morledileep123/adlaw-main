@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Cities</h1>
+            <h1 class="m-0"></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li><a href="#" class="btn btn-secondary btn-sm">Home</a>&nbsp</li>
-              <li><a href="#" class="btn btn-primary btn-sm">Add city</a></li>
+              <li><a href="{{ route('dashboard') }}" class="btn btn-secondary btn-sm">Home</a>&nbsp</li>
+              <li><a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">Back</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,47 +27,36 @@
    
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">All Cities</h3>
+        <h3 class="card-title"></h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add new state</h3>
+            <h3 class="card-title">Edit state</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form>
+          <form action="{{ route('update.state', $stateEdit->state_code) }}" method="post">
+            @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <label>Country name</label>
+                <input type="hidden" class="form-control" name="state_code" id="state_code" value="{{ $stateEdit->state_code }}">
+                <select class="form-control" id="education-dropdown" name="country_code">
+                    @foreach ($getCountry as $country) 
+                    <option value="{{ $country->country_code }}" @if ($country->country_code == $stateEdit->country_code) selected @endif>{{ $country->country_name }}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                  </div>
-                  <div class="input-group-append">
-                    <span class="input-group-text">Upload</span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <label for="exampleInputstate">State name</label>
+                <input type="text" class="form-control" name="state_name" value="{{ $stateEdit->state_name }}">
               </div>
             </div>
             <!-- /.card-body -->
-
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
           </form>
         </div>

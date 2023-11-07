@@ -2,10 +2,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\SpclController;
+use App\Http\Controllers\Admin\QualCatgController;
+use App\Http\Controllers\Admin\QualiController;
+use App\Http\Controllers\Admin\PackageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,15 +30,75 @@ use App\Http\Controllers\Admin\CityController;
 // });
 require __DIR__.'/auth.php';
 Route::prefix('admin')->middleware(['admin'])->group( function () {
-    Route::get('/add/county', [CountryController::class, 'create'])->name('add.country');
-    
-    Route::get('/dashboard/countries', [CityController::class, 'index'])->name('admin.countries');
-    Route::get('/dashboard/states', [CityController::class, 'index'])->name('admin.states');
+    Route::get('/profile', [AdminProfileController::class, 'viewProfile'])->name('admin.profile');
+    Route::get('/profile/basicinfo', [AdminProfileController::class, 'basicInfo'])->name('admin.basic.info'); 
+    Route::post('/profile/basicinfo/add', [AdminProfileController::class, 'basicinfoAdd'])->name('admin.add.basicinfo');
+    Route::get('/profile/basicinfo/edit/{id}', [AdminProfileController::class, 'editBasicinfo'])->name('admin.basicinfo.edit');
+    Route::post('/profile/basicinfo/update/{id}', [AdminProfileController::class, 'updateBasicinfo'])->name('admin.basicinfo.update');
 
-    Route::get('/dashboard/cities', [CityController::class, 'index'])->name('admin.cities');
-    Route::get('/dashboard/city/create', [CityController::class, 'create'])->name('add.city');
-    Route::post('/dashboard/city/store', [CityController::class, 'store'])->name('store.city');
-    Route::post('/dashboard/city/edit/{city_code}', [CityController::class, 'edit'])->name('edit.city');
+    //profile image update
+    Route::get('/profile/pic/edit/{id}', [AdminProfileController::class, 'editProfilePic'])->name('admin.profile.pic.edit');
+    Route::post('/profile/pic/update/{id}', [AdminProfileController::class, 'updateProfilePic'])->name('admin.profile.pic.update');
+
+    Route::post('/profile/edit/get-states-by-country', [AdminProfileController::class, 'getState']);
+    Route::post('/profile/edit/get-cities-by-state', [AdminProfileController::class, 'getCity']);
+    Route::post('/profile/update', [AdminProfileController::class, 'userProfileUpdate'])->name('admin.profile.update');
+
+    //add country
+    Route::get('/countries', [CountryController::class, 'index'])->name('admin.countries');
+    Route::get('/add/country', [CountryController::class, 'create'])->name('add.country');
+    Route::post('/country/store', [CountryController::class, 'store'])->name('store.country');
+    Route::get('/country/edit/{country_code}', [CountryController::class, 'edit'])->name('edit.country');
+    Route::post('/country/update/{country_code}', [CountryController::class, 'update'])->name('update.country');
+    Route::get('/country/delete/{country_code}', [CountryController::class, 'delete'])->name('delete.country');
+
+    Route::get('/states', [StateController::class, 'index'])->name('admin.states');
+    Route::get('/add/state', [StateController::class, 'create'])->name('add.state');
+    Route::post('/state/store', [StateController::class, 'store'])->name('store.state');
+    Route::get('/state/edit/{state_code}', [StateController::class, 'edit'])->name('edit.state');
+    Route::post('/state/update/{state_code}', [StateController::class, 'update'])->name('update.state');
+    Route::get('/state/delete/{state_code}', [StateController::class, 'delete'])->name('delete.state');
+
+
+    Route::get('/cities', [CityController::class, 'index'])->name('admin.cities');
+    Route::get('/city/create', [CityController::class, 'create'])->name('add.city');
+    Route::post('/city/get-state-by-country-code', [CityController::class, 'getState']);
+    Route::post('/city/store', [CityController::class, 'store'])->name('store.city');
+    Route::get('/city/edit/{city_code}', [CityController::class, 'edit'])->name('edit.city');
+    Route::post('/city/update/{city_code}', [CityController::class, 'update'])->name('update.city');
+    Route::get('/city/delete/{city_code}', [CityController::class, 'delete'])->name('delete.city');
+
+    //specialization route
+    Route::get('/specialization', [SpclController::class, 'index'])->name('admin.spcl');
+    Route::get('/specialization/create', [SpclController::class, 'create'])->name('add.spcl');
+    Route::post('/specialization/store', [SpclController::class, 'store'])->name('store.spcl');
+    Route::get('/specialization/edit/{spcl_code}', [SpclController::class, 'edit'])->name('edit.spcl');
+    Route::post('/specialization/update/{spcl_code}', [SpclController::class, 'update'])->name('update.spcl');
+    Route::get('/specialization/delete/{spcl_code}', [SpclController::class, 'delete'])->name('delete.spcl');
+
+    //education route
+    Route::get('/education', [QualiController::class, 'index'])->name('admin.qual');
+    Route::get('/education/create', [QualiController::class, 'create'])->name('add.qual');
+    Route::post('/education/store', [QualiController::class, 'store'])->name('store.qual');
+    Route::get('/education/edit/{qual_code}', [QualiController::class, 'edit'])->name('edit.qual');
+    Route::post('/education/update/{qual_code}', [QualiController::class, 'update'])->name('update.qual');
+    Route::get('/education/delete/{qual_code}', [QualiController::class, 'delete'])->name('delete.qual');
+
+    //education categories route
+    Route::get('/education/categories', [QualCatgController::class, 'index'])->name('admin.educatg');
+    Route::get('/education/categ/create', [QualCatgController::class, 'create'])->name('add.educatg');
+    Route::post('/education/categ/store', [QualCatgController::class, 'store'])->name('store.educatg');
+    Route::get('/education/categ/edit/{qual_catg_code}', [QualCatgController::class, 'edit'])->name('edit.educatg');
+    Route::post('/education/categ/update/{qual_catg_code}', [QualCatgController::class, 'update'])->name('update.educatg');
+    Route::get('/education/categ/delete/{qual_catg_code}', [QualCatgController::class, 'delete'])->name('delete.educatg');
+
+     //packages route
+     Route::get('/packages', [PackageController::class, 'index'])->name('admin.package');
+     Route::get('/package/create', [PackageController::class, 'create'])->name('add.package');
+     Route::post('/package/store', [PackageController::class, 'store'])->name('store.package');
+     Route::get('/package/edit/{package_id}', [PackageController::class, 'edit'])->name('edit.package');
+     Route::post('/package/update/{package_id}', [PackageController::class, 'update'])->name('update.package');
+     Route::get('/package/delete/{package_id}', [PackageController::class, 'delete'])->name('delete.package');
 });
 //for home page user display
 Route::get('/', [HomeController::class, 'viewHome']);
@@ -84,5 +149,3 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/profile/edit/get-court-by-court-type', [ProfileController::class, 'editGetCourt']);
     Route::post('/user/profile/practicing-court/update/{id}', [ProfileController::class, 'updatePrectecingCourt'])->name('update.prectecing.court');
 });
-// Route::get('/dashboard/user/profile', [ProfileController::class, 'viewProfile'])->middleware(['auth'])->name('profile');
-// Route::post('/dashboard/user/profile', [ProfileController::class, 'userProfileUpdate'])->middleware(['auth'])->name('profileUpdate');

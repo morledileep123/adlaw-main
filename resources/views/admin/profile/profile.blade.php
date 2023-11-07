@@ -10,42 +10,73 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User Profile</h1>
+            <h1 class="text-center m-50"></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User Profile</li>
+              <li class="breadcrumb-item active"><a href="{{ route('admin.basic.info') }}">Add basic details</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    @if(Session::has('success'))
+    <p class="alert alert-info">{{ Session::get('success') }}</p>
+    @endif
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-4">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile" id="card">
+                <div class="text-center mb-2">
+                  @if(!empty($userProfile) && $userProfile->photo_path !='')
+                  <a href="{{ route('dashboard') }}"><img class="img-fluid img-circle" src="{{ url('public/profile-image/'.$userProfile->photo_path) }}" width="200px" height="200px"></a>
+                  @else
+                  <a href="{{ route('dashboard') }}"><img class="img-fluid img-circle" src="{{ asset('dist/img/user2-160x160.jpg') }}" alt="User profile picture" width="200px" height="400px"></a>
+                  @endif
+                </div><br>
+                <h4 class="text-center mb-2">Profile Image</h4>
+                <h4 class="text-center mb-2"><a href="{{ route('admin.profile.pic.edit', ['id'=>Auth::user()->id]) }}">Edit</a></h4>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <div class="col-md-8">
 
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
-                <div class="text-center mb-2">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user2-160x160.jpg"
-                       alt="User profile picture">
-                </div>
+                <h4>Basic Information <a href="{{ route('admin.basicinfo.edit', ['id'=>Auth::user()->id]) }}" style="float:right">Edit</a></h4>
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
-                     <p class="text-muted text-left"><b>Name : {{ Auth::user()->user_name}}</b></p>
-                  </li>
-                  <li class="list-group-item">
-                  <p class="text-muted text-left"><b>Email : {{ Auth::user()->email}}</b></p>
-                  </li>
-                  <li class="list-group-item">
-                  <p class="text-muted text-left"><b>Mobile : {{ Auth::user()->mobile}}</b></p>
+                    @if (!empty($userProfile) || empty($userProfile->user_id))
+                      <p class="text-muted text-left"><b>User Name : {{ $userProfile->firstname}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}</b><br>
+                        <b>Date Of Birth : {{ $userProfile->dob}}</b><br>
+                        <b>Gender : {{ $userProfile->gender}}</b><br>
+                        <b>Email : {{ Auth::user()->email }}</b><br>
+                        <b>Mobile number : {{ Auth::user()->mobile }}</b><br>
+                        <b>Country Name : {{ $userProfile->country_name }}</b><br>
+                        <b>State Name : {{ $userProfile->state_name}}</b><br>
+                        <b>City Name : {{ $userProfile->city_name}}</b>
+                      </p>
+                    @else
+                    <p class="text-muted text-left"><b>User Name : {{ Auth::user()->user_name }}</b><br>
+                      <b>Date Of Birth : </b><br>
+                      <b>Gender : </b><br>
+                      <b>Email : {{ Auth::user()->email }}</b><br>
+                      <b>Mobile number : {{ Auth::user()->mobile }}</b><br>
+                      <b>Country Name : </b><br>
+                      <b>State Name : </b><br>
+                      <b>City Name : </b>
+                    </p>
+                    @endif
                   </li>
                 </ul>
               </div>
@@ -53,67 +84,6 @@
             </div>
             <!-- /.card -->
           </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            <div class="card">
-              <div class="card-header p-2">
-                  <h3 class="nav-item">Update Profile</h3>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                @if($message = Session::get('success'))
-                  <div class="alert alert-success">
-                <p>{{$message}}</p>
-                  </div>
-                @endif
-                <div class="tab-content">
-                  <div id="settings">
-                    <form class="form-horizontal" method="POST" action="{{ route('profileUpdate') }}">
-                      @csrf
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">User Name</label>
-                        <div class="col-sm-10">
-                          <input type="hidden" class="form-control" id="id" name="id" value="{{ Auth::user()->id}}"> 
-                          <input type="text" class="form-control" id="inputName" value="{{ Auth::user()->user_name}}" name="user_name" placeholder="Name">
-                        </div>
-                      </div>
-                      @if ($errors->has('user_name'))
-                        <span class="text-danger">{{ $errors->first('user_name') }}</span>
-                      @endif
-                      <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" value="{{ Auth::user()->email}}" placeholder="Enter Email Address">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputMobile" class="col-sm-2 col-form-label">Mobile Number</label>
-                        <div class="col-sm-10">
-                          <input type="number" class="form-control" name="mobile" value="{{ Auth::user()->mobile}}" id="inputMobile" placeholder="Enter Mobile Number">
-                        </div>
-                      </div>
-                      @if ($errors->has('mobile'))
-                        <span class="text-danger">{{ $errors->first('mobile') }}</span>
-                      @endif
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
         </div>
        </div><!-- /.container-fluid -->
     </section>

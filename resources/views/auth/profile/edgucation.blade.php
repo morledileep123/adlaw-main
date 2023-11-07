@@ -29,7 +29,7 @@
    
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Qualification update</h3>
+        <h3 class="card-title">Add education</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">

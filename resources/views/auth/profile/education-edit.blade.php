@@ -37,35 +37,35 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('qualificationUpdate') }}" method="post">
+          <form action="{{ route('qualificationUpdate', ['id'=>$qualEdit->id]) }}" method="post">
              @csrf
             <div class="card-body">
               <div class="form-group">
                 <label>Education Type</label>
-                  <input type="hidden" name="id" class="form-control" id="id" value="{{ $qualEdit[0]->id }}">
+                  <input type="hidden" name="id" class="form-control" id="id" value="{{ $qualEdit->id }}">
                   <select class="form-control" id="education-dropdown" name="qual_catg_code">
                       @foreach ($catgQualMast as $qualification) 
-                      <option value="{{ $qualification->qual_catg_code }}" @if ($qualification->qual_catg_code == $qualEdit[0]->qual_catg_code) selected @endif>{{ $qualification->qual_catg_desc }}</option>
+                      <option value="{{ $qualification->qual_catg_code }}" @if ($qualification->qual_catg_code == $qualEdit->qual_catg_code) selected @endif>{{ $qualification->qual_catg_desc }}</option>
                       @endforeach
                   </select>
               </div>
               <div class="form-group">
                 <label>Select graducation</label>
                   <select class="form-control" id="graducation-dropdown" name="qual_desc">
-                     <option type="hidden" value="{{ $qualEdit[0]->qual_catg_code }}">{{ $qualEdit[0]->qual_desc }}</option>
+                     <option type="hidden" value="{{ $qualEdit->qual_catg_code }}">{{ $qualEdit->qual_desc }}</option>
                   </select>
               </div>
               <div class="form-group">
                 <label for="exampleInputCityName">Paasing year</label>
-                <input type="text" name="pass_year" class="form-control" id="exampleInputCityName" value="{{ $qualEdit[0]->pass_year }}" placeholder="Paasing year">
+                <input type="text" name="pass_year" class="form-control" id="exampleInputCityName" value="{{ $qualEdit->pass_year }}" placeholder="Paasing year">
               </div>
               <div class="form-group">
                 <label for="exampleInputCityName">Paasing Perceantage</label>
-                <input type="text" name="pass_perc" class="form-control" id="exampleInputCityName" value="{{ $qualEdit[0]->pass_perc }}" placeholder="Enter Paasing Perceantage">
+                <input type="text" name="pass_perc" class="form-control" id="exampleInputCityName" value="{{ $qualEdit->pass_perc }}" placeholder="Enter Paasing Perceantage">
               </div>
               <div class="form-group">
                 <label for="exampleInputCityName">Paasing Division</label>
-                <input type="text" name="pass_division" class="form-control" id="exampleInputCityName" value="{{ $qualEdit[0]->pass_division }}" placeholder="Enter Paasing Division">
+                <input type="text" name="pass_division" class="form-control" id="exampleInputCityName" value="{{ $qualEdit->pass_division }}" placeholder="Enter Paasing Division">
             </div>
             <!-- /.card-body -->
 

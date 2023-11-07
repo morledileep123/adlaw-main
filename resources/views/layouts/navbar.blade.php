@@ -13,38 +13,77 @@
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      
-
-      <!-- Messages Dropdown Menu -->
-      
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-user" style="font-size: 1.4rem;"></i>
-          @if (!empty($userProfile) && count($userProfile) > 0)
-          {{ $userProfile[0]->firstname}}&nbsp {{ $userProfile[0]->middlename ?? null}}&nbsp{{ $userProfile[0]->lastname ?? null}}
-          @else
-          {{ Auth::user()->user_name }}
-          @endif
-        </a>
-        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-        <div class="dropdown-divider"></div>
-          <a href="{{ route('profile') }}" class="dropdown-item dropdown-footer">Profile</a>
-          <div class="dropdown-divider"></div>
+    @if (Auth::check()) 
+      @if (Auth::user()->user_type_id == 'X') 
+        <ul class="navbar-nav ml-auto">
+          <!-- Navbar Search -->
           
-          <a href="{{ route('logout') }}" >
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="dropdown-item dropdown-footer" href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('LogOut') }}
-                     </a>
-                </form>
-                </a>
-        </div>
-      </li>
-    </ul>
+
+          <!-- Messages Dropdown Menu -->
+          
+          <!-- Notifications Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fas fa-user" style="font-size: 1.4rem;"></i>
+              @if (!empty($userProfile->firstname) && !empty($userProfile->firstname) && !empty($userProfile->firstname))
+              {{ $userProfile->firstname ?? null}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}
+              @else
+              {{ Auth::user()->user_name }}
+              @endif
+            </a>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+              <a href="{{ route('admin.profile') }}" class="dropdown-item dropdown-footer">Profile</a>
+              <div class="dropdown-divider"></div>
+              
+              <a href="{{ route('logout') }}" >
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="dropdown-item dropdown-footer" href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('LogOut') }}
+                          </a>
+                    </form>
+                    </a>
+            </div>
+          </li>
+        </ul>
+        @else
+        <ul class="navbar-nav ml-auto">
+          <!-- Navbar Search -->
+          
+
+          <!-- Messages Dropdown Menu -->
+          
+          <!-- Notifications Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fas fa-user" style="font-size: 1.4rem;"></i>
+              @if (!empty($userProfile) && $userProfile->user_id !='')
+              {{ $userProfile->firstname}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}
+              @else
+              {{ Auth::user()->user_name }}
+              @endif
+            </a>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+              <a href="{{ route('profile') }}" class="dropdown-item dropdown-footer">Profile</a>
+              <div class="dropdown-divider"></div>
+              
+              <a href="{{ route('logout') }}" >
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="dropdown-item dropdown-footer" href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('LogOut') }}
+                          </a>
+                    </form>
+                    </a>
+            </div>
+          </li>
+        </ul>
+      @endif
+    @endif
   </nav>

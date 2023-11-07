@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-
+<link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 @section("content")
   <!-- ContentWrapper. Contains page content -->
@@ -33,39 +33,40 @@
       <div class="card-body">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add new state</h3>
+            <h3 class="card-title">Edit qualification</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('store.state') }}" method="post">
+          <form action="{{ route('update.qual', $qualEdit->qual_code) }}" method="post">
             @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">Country name</label>
-                <select  class="form-control" name="country_code">
+                <label for="exampleInputEmail1">Education category code</label>
+                <input type="hidden" class="form-control" name="qual_code" id="qual" value="{{ $qualEdit->qual_code }}">
+                <select  class="form-control" name="qual_catg_code">
                 <option value="">--select collect--</option>
-                  @foreach ($getCountry as $country) 
-                  <option value="{{$country->country_code}}">
-                  {{$country->country_name}}
+                  @foreach ($getCatgQual as $catg) 
+                  <option value="{{$catg->qual_catg_code}}" @if($catg->qual_catg_code == $qualEdit->qual_catg_code) selected @endif>
+                  {{$catg->qual_catg_desc}}
                   </option>
                   @endforeach
                 </select>
-                @if ($errors->has('country_code'))
-                  <span class="text-danger">{{ $errors->first('country_code') }}</span>
+                @if ($errors->has('qual_catg_code'))
+                  <span class="text-danger">{{ $errors->first('qual_catg_code') }}</span>
                 @endif
               </div>
               <div class="form-group">
-                <label for="exampleInputstate">state name</label>
-                <input type="text" class="form-control" name="state_name" id="exampleInputstate" placeholder="Enter state name">
+                <label for="exampleInputEducation">Education name</label>
+                <input type="text" class="form-control" name="qual_desc" value="{{ $qualEdit->qual_desc }}">
               </div>
-              @if ($errors->has('state_name'))
-                <span class="text-danger">{{ $errors->first('state_name') }}</span>
-              @endif
+              <div class="form-group">
+                <label for="exampleInputShort">Short desription</label>
+                <input type="text" class="form-control" name="shrt_desc" value="{{ $qualEdit->shrt_desc }}">
+              </div>
             </div>
             <!-- /.card-body -->
-
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
           </form>
         </div>
@@ -77,6 +78,12 @@
   </div>
  @endsection
  @section("script")
+ <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>
  <script>
   $(function () {
     $('#example1').DataTable().destroy();
