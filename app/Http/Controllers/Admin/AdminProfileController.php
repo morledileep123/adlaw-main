@@ -75,9 +75,10 @@ class AdminProfileController extends Controller
         $data = Auth::user();
         if(isset($data) && $data->id !=''){
             $id =$data->id;
+            $userProfile = ProfileDetails::where('user_id', $id)->get()->first();
             $profilePic = ProfileDetails::where('user_id',$id)->get();
             $countries = CountryMast::get(["country_name","country_code"]);
-            return view('admin.profile.add-basic-info', compact('profilePic','countries'));
+            return view('admin.profile.add-basic-info', compact('profilePic','countries', 'userProfile'));
         }else{
             return redirect()->route('login')->with('success','Session destroy please login');
         }
@@ -104,8 +105,8 @@ class AdminProfileController extends Controller
             $stateName = StateMast::where('state_code', $request->state_name)->get();
             $cityName = CityMast::where('city_code', $request->city_name)->get();
             $basicInfoAdd = ProfileDetails::where('user_id',$userId)->get(); 
-            if(!empty($basicInfoAdd)){
-                return redirect()->back()->with('success','Basic information allready added');
+            if(!empty($basicInfoAdd) && $basicInfoAdd !=null){
+                return redirect()->route('admin.profile')->with('success','Basic information allready added');
                 
             }else{
                 $user = new ProfileDetails;
@@ -133,7 +134,7 @@ class AdminProfileController extends Controller
                 $user->bar_regs_numb = $request->bar_regs_numb;
                 $user->detl_profile = $request->detl_profile;
                 $user->save();
-                return redirect()->back()->with('success','Basic information added successfully');
+                return redirect()->route('admin.profile')->with('success','Basic information added successfully');
             }
         }else{
             return redirect()->route('login')->with('success','Session destroy please login');
@@ -153,7 +154,7 @@ class AdminProfileController extends Controller
             if(!empty($basicInfoData)){
                 return view('admin.profile.basic-info-edit', ['countries'=>$countries, 'basicInfoData'=>$basicInfoData, 'userProfile'=>$userProfile]);
             }else{
-                return redirect()->back()->with('success','Please add the basic information first');
+                return redirect()->route('admin.profile')->with('success','Please add the basic information first');
             }
         }else{
             return redirect()->route('login')->with('success','Session destroy please login');

@@ -124,10 +124,10 @@
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                             <div class="input-group mb-3">
-                                <input type="password" placeholder="Password" value="{{ old('password') }}" id="password" class="form-control" name="password" autocomplete="new-password">
+                                <input type="password" placeholder="Password" value="{{ old('password') }}" id="id_password" class="form-control" name="password" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
+                                        <span class="far fa-eye" id="togglePassword" ></span>
                                     </div>
                                 </div>
                             </div>
@@ -136,10 +136,10 @@
                             @endif
                             
                             <div class="input-group mb-3">
-                                <input type="password" placeholder="Confirm Password" id="password_confirmation" class="form-control" name="password_confirmation" />
+                                <input type="password" placeholder="Confirm Password" id="cnfm_password" class="form-control" name="password_confirmation" />
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
+                                        <span class="far fa-eye" id="togglePasswordCnfm" ></span>
                                     </div>
                                 </div>
                             </div>
@@ -168,6 +168,28 @@
         <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-        
+        <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#id_password');
+            
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            const togglePasswordCnfm = document.querySelector('#togglePasswordCnfm');
+            const cnfm_password = document.querySelector('#cnfm_password');
+
+            togglePasswordCnfm.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = cnfm_password.getAttribute('type') === 'password' ? 'text' : 'password';
+                cnfm_password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        </script>
     </body>
 </html>

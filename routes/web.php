@@ -102,8 +102,11 @@ Route::prefix('admin')->middleware(['admin'])->group( function () {
 });
 //for home page user display
 Route::get('/', [HomeController::class, 'viewHome']);
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact.us');
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about.us');
 Route::get('/lawyers/{state_code}', [HomeController::class, 'showByState']);
-Route::get('/search/lawyers/{state}/{city_name}', [HomeController::class, 'showByCity']);
+Route::get('/search/lawyers/{spcl_code}/{spcl}', [HomeController::class, 'showByCity']);
+Route::get('/search/lawyers/{id}', [HomeController::class, 'detailsOfLawyers'])->name('lawyers.details');
 //close user display
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');

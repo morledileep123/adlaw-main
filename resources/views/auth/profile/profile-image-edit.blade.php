@@ -99,7 +99,7 @@ img {
                 @if($profilePic->photo_path !=null)
                 <img src="/public/profile-image/{{ $profilePic->photo_path }}" id="preview-image-before-upload" width="150px" height="150px">
                 @else
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" id="preview-image-before-upload" class="img-square elevation-2" alt="User Image">
+                <img src="{{ asset('lawyer/img/2801143.png') }}" id="preview-image-before-upload" class="img-square elevation-2" alt="User Image" width="150px" height="150px">
                 @endif
               </div>
                 @if ($errors->has('photo_path'))

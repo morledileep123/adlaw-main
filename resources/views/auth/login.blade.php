@@ -92,10 +92,10 @@
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                             <div class="input-group mb-3">
-                                <input type="password" id="password" placeholder="Enter Password" class="form-control" name="password" >
+                                <input type="password" id="id_password" placeholder="Enter Password" class="form-control" name="password" >
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                                    <span class="far fa-eye" id="togglePassword" ></span>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +129,17 @@
         <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-        
+        <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#id_password');
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        </script>
     </body>
 </html>

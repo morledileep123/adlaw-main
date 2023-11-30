@@ -90,22 +90,12 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="{{ url('') }}" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
+                <a href="{{ route('about.us') }}" class="nav-item nav-link">About</a>
                 <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
                 <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu bg-light m-0">
-                        <a href="feature.html" class="dropdown-item">Feature</a>
-                        <a href="quote.html" class="dropdown-item">Free Quote</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
-                    </div>
-                </div> -->
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="{{ route('contact.us') }}" class="nav-item nav-link">Contact Us</a>
             </div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{{ url()->previous() }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i class="fa fa-arrow-left ms-3"></i>&nbsp Previous page</a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -117,7 +107,7 @@
     <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="owl-carousel header-carousel position-relative">
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/banner.jpg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/banner.jpg') }}" style="width:100%; height:600px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/banner.jpg') }}" style="width:100%; height:500px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -131,7 +121,7 @@
                 </div> -->
             </div>
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/slider2.jpeg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/slider2.jpeg') }}" style="width:100%; height:600px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/slider2.jpeg') }}" style="width:100%; height:500px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -145,7 +135,7 @@
                 </div> -->
             </div>
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/slider-1.jpg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/slider-1.jpg') }}" style="width:100%; height:600px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/slider-1.jpg') }}" style="width:100%; height:500px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -166,7 +156,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-title section-title-border" style="margin-top:50px; margin-bottom:22px;"><u>Users Details By Cities</u></h2>
+                    <h2 class="section-title section-title-border" style="margin-bottom:22px;"><u>Users Details By Cities</u></h2>
                 </div>
                 <!-- service item -->
                 <div class="col-lg-12 col-sm-12 mb-5 mb-lg-0">
@@ -180,10 +170,14 @@
                                                 <td class="col-md-6 col-sm-12 " style="padding: 18px;">
                                                     <div class="row mt-4 profile-div">
                                                         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 pb-2" id="user_img">
-                                                            @if ($data->photo_path ==null)   
-                                                            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="w-100" style="width:200px !important; height:250px;">
+                                                            @if ($data->photo_path !=null)   
+                                                            <img src="/public/profile-image/{{ $data->photo_path }}" class="w-100" style="width:200px !important; height:190px;">
                                                             @else
-                                                            <img src="/public/profile-image/{{ $data->photo_path }}" class="w-100" style="width:200px !important; height:250px;">
+                                                                @if ($data->gender =='M')   
+                                                                <img src="{{ asset('lawyer/img/testimonial-3.jpg') }}" class="w-100" style="width:200px !important; height:190px;">
+                                                                @else
+                                                                <img src="{{ asset('lawyer/img/testimonial-1.jpg') }}" class="w-100" style="width:200px !important; height:190px;">
+                                                                @endif
                                                             @endif
                                                             
                                                         </div>
@@ -198,7 +192,7 @@
                                                                     <br>
                                                                 </h3>
                                                             </div>
-                                                            <div class="details" style="display:inline;">
+                                                            <!-- <div class="details" style="display:inline;">
                                                                 <h5 class="" style="margin:1px 0;font-size:16px;">
                                                                     @if (!empty($cityData) && count($cityData) > 0)   
                                                                     <h5 class="licence_no" style="margin:1px 0;font-weight:800; font-size:14px;float:left;">Licence no - {{ $data->licence_no }}</h5>
@@ -217,7 +211,7 @@
                                                                     @endif
                                                                     <br>
                                                                 </h5>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="details" style="display:inline;">
                                                                 <h5 class="" style="margin:1px 0;font-size:16px;">
                                                                     @if (!empty($cityData) && count($cityData) > 0)   
@@ -277,13 +271,14 @@
                                                     </h6>
                                                     <h6 class="">  
                                                     </h6>
+                                                    @foreach($qualData as $qual)
                                                     <h6 class=""> 
-                                                        @if (!empty($cityData) && count($cityData) > 0)   
-                                                        </h6><h5 class="state" style="margin:1px 0;font-weight:800; font-size:14px;float:left;">Education - B.A. LL.B (Hons.)&nbsp;</h5>
-                                                        @else
-                                                        <i class="fa fa-graduation-cap text-info"></i>Education - B.A. LL.B (Hons.)&nbsp;
+                                                        @if (!empty($qualData) && count($cityData) > 0 && $qual->user_id == $data->user_id )   
+                                                        </h6><h5 class="state" style="margin:1px 0;font-weight:800; font-size:14px;float:left;"><i class="fa fa-graduation-cap text-info"></i> Education - {{ $qual->qual_desc}}&nbsp;</h5>
                                                         @endif 
-                                                    </h6><br>
+                                                    </h6>
+                                                    @endforeach
+                                                    <br>
                                                     <h6 class=""  style="margin:auto; text-align:left;">  
                                                         @if (!empty($cityData) && count($cityData) > 0)  
                                                          <i class="text-info fa fa-user"><span style="color:#000; ">&nbsp;&nbsp;Profile Description: {!! strip_tags($data->detl_profile) !!}</span></i>
@@ -294,9 +289,10 @@
                                                         An articulate, focused professional who has a proven history of gathering and analysing information and then using the results of that analysis to make effective decisions and find innovative solutions to legal problems. Shweta possesses strong post qualification experience which allows her to play an important and visible role in all areas of her profession. She has superb communication skills which are vital when representing the client in business to establish her suitability to provide the necessary advice...</p>
                                                         @endif 
                                                     </h6>
+                                                    <br>
                                                     <div class="row" style="">
                                                         <div class="col-md-4 col-xm-12 col-sm-12">
-                                                            <a href="#" class="btn btn-md text-primary border-primary">Detail Profile</a> 
+                                                            <a href="{{ route('lawyers.details', $data->user_id) }}" class="btn btn-md text-primary border-primary">Detail Profile</a> 
                                                         </div>
                                                         <div class="col-md-4 col-xm-12 col-sm-12">
                                                             <div class="row">

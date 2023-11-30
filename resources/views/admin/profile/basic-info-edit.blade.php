@@ -104,6 +104,14 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-12">
+                                            <label for="inputAddress" class="col-sm-5 col-form-label">Address</label>
+                                            <div class="col-sm-12">
+                                            <textarea id="summernote1" class="summernote1 form-control" name="address">{{ $basicInfoData->address}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
                                             <label for="inputMobile" class="col-sm-5 col-form-label">Add country</label>
                                             <div class="col-sm-12">
                                                 <select class="form-control" id="country-dropdown" name="country_name">
@@ -139,14 +147,6 @@
                                             <label for="inputZipcode" class="col-sm-5 col-form-label">Zip code</label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control" name="zip_code" value="{{ $basicInfoData->zip_code}}" id="inputZipcode" placeholder="Enter zip code">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <label for="inputAddress" class="col-sm-5 col-form-label">Address</label>
-                                            <div class="col-sm-12">
-                                            <textarea id="summernote" class="summernote form-control" name="address">{{ $basicInfoData->address}}</textarea>
                                             </div>
                                         </div>
                                     </div>

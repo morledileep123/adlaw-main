@@ -99,15 +99,11 @@
         </div>
     </nav>
     <!-- Navbar End -->
-
-    @if(Session::has('success'))
-    <p class="alert alert-info">{{ Session::get('success') }}</p>
-    @endif
     <!-- Carousel Start -->
     <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="owl-carousel header-carousel position-relative">
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/banner.jpg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/banner.jpg') }}" style="width:100%; height:500px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/banner.jpg') }}" style="width:100%; height:400px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -121,7 +117,7 @@
                 </div> -->
             </div>
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/slider2.jpeg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/slider2.jpeg') }}" style="width:100%; height:500px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/slider2.jpeg') }}" style="width:100%; height:400px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -135,7 +131,7 @@
                 </div> -->
             </div>
             <div class="owl-carousel-item position-relative" data-dot="<img src='{{ asset('lawyer/img/slider-1.jpg') }}'>">
-                <img class="img-fluid" src="{{ asset('lawyer/img/slider-1.jpg') }}" style="width:100%; height:500px;" alt="">
+                <img class="img-fluid" src="{{ asset('lawyer/img/slider-1.jpg') }}" style="width:100%; height:400px;" alt="">
                 <!-- <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -150,104 +146,19 @@
             </div>
         </div>
     </div>
-    <!-- Carousel End -->
-
+    <!-- Team End -->
     <!-- Team Start -->
-    <section class="lawyers">
+    <div class="col-lg-12 col-sm-12 mb-5 mb-lg-0">
+      <div class="card text-center">
         <div class="container">
+          <div class="block" style="margin-bottom: 40px; margin-top: 10px;">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow-sm card-border-top">
-                        <div class="card-header text-center p-2">
-                            <h5 class="card-title text-primary">Number of Lawyers in all States ({{ count($states) }})</h5>
-                        </div>
-                        <div class="card-body p-5 bg-gray">
-                            <div class="row" id="stateRow">
-                            @foreach ($states as $state)
-                            <div class="col-md-4">
-                            <a href="javascript:void(0)" class="text-primary stateView" id="{{ $state->spcl_code }}" data-id="{{ $state->spcl_code }}"><i class="fa fa-map-marker"></i>&nbsp;{{ $state->spcl_desc }}</a><br>
-                            </div>
-                            @endforeach
-                            </div>
-
-                            <div class="row d-none" id="spclRow">
-                                <!-- spcl listings will be loaded here using AJAX -->
-                            </div>
-
-                            <div class="row d-none" id="spclRow1">
-                                <div class="col-md-12 mt-1 text-center">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary p-2" id="backStateBtn">Back</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
             </div>
+          </div>
         </div>
-    </section>
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Testimonial</h6>
-                <h1 class="mb-4">What Our Lawyers Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            @foreach ($details as $data)
-            <div class="testimonial-item text-center">
-                <div class="testimonial-img position-relative">
-                @if($data->photo_path !='')
-                   <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ url('public/profile-image/'.$data->photo_path) }}">
-                    @else
-                       @if($data->gender =='M')
-                       <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ asset('lawyer/img/testimonial-3.jpg') }}"> 
-                       @else
-                       <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ asset('lawyer/img/testimonial-1.jpg') }}"> 
-                       @endif
-                    @endif
-                    <div class="btn-square bg-primary rounded-circle">
-                        <i class="fa fa-quote-left text-white"></i>
-                    </div>
-                </div>
-                <div class="testimonial-text text-center rounded p-4">
-                    <p >{!! strip_tags($data->detl_profile) !!}</p>
-                    <h5 class="mb-1">Client Name</h5>
-                    <span class="fst-italic">{{ $data->firstname }} {{ $data->middlename }} {{ $data->lastname }}</span>
-                </div>
-            </div>
-            @endforeach
-                <!-- <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ asset('lawyer/img/testimonial-2.jpg') }}">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ asset('lawyer/img/testimonial-3.jpg') }}">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
-
+      </div>
+    </div><!-- /.container-fluid -->
     <!-- Footer Start -->
     <div class="container bg-dark text-body footer wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -301,56 +212,6 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('lawyer/js/main.js') }}"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function(){
-    $('.stateView').on('click', function(e){
-        e.preventDefault();
-        var spcl_code = $(this).attr('id');
-        var spcl_desc = $(this).data('id');
-        $.ajax({
-            type: 'GET',
-            url: "/lawyers/" + spcl_code,
-            success: function(res){
-                $('#spclRow').removeClass('d-none');
-                $('#spclRow1').removeClass('d-none');
-                $('#stateRow').addClass('d-none');
-                $('#spclRow').empty();
 
-                // Extract unique spcl names from the response data
-                var uniqueCities = [];
-                $.each(res, function(i, v) {
-                    if (uniqueCities.indexOf(v.spcl_desc) === -1) {
-                        uniqueCities.push(v.spcl_desc);
-                    }
-                });
-
-                // Display unique spcl names
-                $.each(uniqueCities, function(i, spcl) {
-                    $('#spclRow').append('<div class="col-md-4"><a href="/search/lawyers/' + spcl_code +'/'+spcl+ '" class="text-primary stateView"><i class="fa fa-map-marker"></i> ' + spcl + ' (' + getCountForspcl(res, spcl) + ')</a><br/><br/></div>');
-                });
-            }
-        });
-    });
-
-    $(document).on('click', '#backStateBtn', function(e){
-        e.preventDefault();
-        $('#spclRow').addClass('d-none');
-        $('#spclRow1').addClass('d-none');
-        $('#stateRow').removeClass('d-none');
-        $('#spclRow').empty();
-    });
-});
-
-function getCountForspcl(data, spcl) {
-    var count = 0;
-    $.each(data, function(i, v) {
-        if (v.spcl_desc === spcl) {
-            count++;
-        }
-    });
-    return count;
-}
-</script>
 </body>
 </html>

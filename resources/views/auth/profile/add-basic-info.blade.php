@@ -143,13 +143,13 @@
                 <div class="col-sm-12">
                     <label for="inputAddress" class="col-sm-5 col-form-label">Address</label>
                     <div class="col-sm-12">
-                      <textarea id="summernote" class="summernote form-control" name="address"></textarea>
+                      <textarea id="summernote1" class="summernote1 form-control" name="address"></textarea>
                     </div>
                 </div>
             </div>
             <div class="form-group">    
                 <div class="col-sm-12">
-                    <label for="inputAdhar" class="col-sm-5 col-form-label">Adhar Numbe</label>
+                    <label for="inputAdhar" class="col-sm-5 col-form-label">Adhar Number</label>
                     <div class="col-sm-12">
                         <input type="number" class="form-control" name="aadhar_numb" id="inputAdhar" placeholder="Enter adhar number">
                     </div>

@@ -16,11 +16,11 @@
           </div>
           @else
           <div class="image">
-            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset('lawyer/img/2801143.png') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           @endif
           <div class="info">
-          @if (!empty($userProfile->firstname) && !empty($userProfile->firstname) && !empty($userProfile->firstname))
+          @if (!empty($userProfile->firstname) && !empty($userProfile->middlename) && !empty($userProfile->lastname))
             <a href="#" class="d-block">
             {{ $userProfile->firstname}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}
             </a>
@@ -177,11 +177,11 @@
         </div>
         @else
         <div class="image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('lawyer/img/2801143.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         @endif
         <div class="info">
-        @if (!empty($userProfile->firstname) && !empty($userProfile->firstname) && !empty($userProfile->firstname))
+        @if (!empty($userProfile->firstname) && !empty($userProfile->middlename) && !empty($userProfile->lastname))
           <a href="#" class="d-block">{{ $userProfile->firstname}}&nbsp {{ $userProfile->middlename ?? null}}&nbsp{{ $userProfile->lastname ?? null}}</a>
           @else
           <a href="#" class="d-block">{{ Auth::user()->user_name }}</a>
@@ -229,57 +229,6 @@
                 <a href="{{ route('prectecing.court') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Practicing Courts</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-landmark"></i>
-              <p>
-                user1
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Show State</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-city"></i>
-              <p>
-                User2
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Show City</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-city"></i>
-              <p>
-                User3
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Show City</p>
                 </a>
               </li>
             </ul>

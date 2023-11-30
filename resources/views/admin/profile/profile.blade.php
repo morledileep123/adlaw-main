@@ -36,9 +36,9 @@
               <div class="card-body box-profile" id="card">
                 <div class="text-center mb-2">
                   @if(!empty($userProfile) && $userProfile->photo_path !='')
-                  <a href="{{ route('dashboard') }}"><img class="img-fluid img-circle" src="{{ url('public/profile-image/'.$userProfile->photo_path) }}" width="200px" height="200px"></a>
+                  <img class="img-fluid img-circle" src="{{ url('public/profile-image/'.$userProfile->photo_path) }}" width="200px" height="200px">
                   @else
-                  <a href="{{ route('dashboard') }}"><img class="img-fluid img-circle" src="{{ asset('dist/img/user2-160x160.jpg') }}" alt="User profile picture" width="200px" height="400px"></a>
+                  <img class="img-fluid img-circle" src="{{ asset('lawyer/img/testimonial-3.jpg') }}" alt="User profile picture" width="200px" height="400px">
                   @endif
                 </div><br>
                 <h4 class="text-center mb-2">Profile Image</h4>

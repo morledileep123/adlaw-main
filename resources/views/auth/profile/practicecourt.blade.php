@@ -90,7 +90,7 @@
   $(document).ready(function() {
     $('#court-dropdown').on('change', function() {
       var court_type_code = this.value;
-      // console.log(court_type_code);
+      
       $("#courtname-dropdown").html('');
       $.ajax({
         url:"{{url('profile/get-court-by-court-type')}}",

@@ -38,7 +38,7 @@
                   @if(!empty($profilePic) && $profilePic->photo_path !='')
                   <a href="#"><img class="profile-user-img img-fluid img-circle" src="{{ url('public/profile-image/'.$profilePic->photo_path) }}" alt="User profile picture"></a>
                   @else
-                  <a href="{{ route('dashboard') }}"><img class="profile-user-img img-fluid img-circle" src="{{ asset('dist/img/user2-160x160.jpg') }}" alt="User profile picture"></a>
+                  <img class="profile-user-img img-fluid img-circle" src="{{ asset('lawyer/img/2801143.png') }}" alt="User profile picture">
                   @endif
                 </div>
                 <h4 class="text-center mb-2">Profile Image</h4>

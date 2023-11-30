@@ -37,12 +37,12 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{ route('qualificationUpdate', ['id'=>$qualEdit->id]) }}" method="post">
+          <form action="{{ route('qualificationUpdate', ['id'=>$qualEdit->user_id]) }}" method="post">
              @csrf
             <div class="card-body">
               <div class="form-group">
                 <label>Education Type</label>
-                  <input type="hidden" name="id" class="form-control" id="id" value="{{ $qualEdit->id }}">
+                  <input type="hidden" name="user_id" class="form-control" id="user_id" value="{{ $qualEdit->user_id }}">
                   <select class="form-control" id="education-dropdown" name="qual_catg_code">
                       @foreach ($catgQualMast as $qualification) 
                       <option value="{{ $qualification->qual_catg_code }}" @if ($qualification->qual_catg_code == $qualEdit->qual_catg_code) selected @endif>{{ $qualification->qual_catg_desc }}</option>
@@ -52,7 +52,7 @@
               <div class="form-group">
                 <label>Select graducation</label>
                   <select class="form-control" id="graducation-dropdown" name="qual_desc">
-                     <option type="hidden" value="{{ $qualEdit->qual_catg_code }}">{{ $qualEdit->qual_desc }}</option>
+                     <option type="hidden" value="{{ $qualEdit->qual_code }}">{{ $qualEdit->qual_desc }}</option>
                   </select>
               </div>
               <div class="form-group">

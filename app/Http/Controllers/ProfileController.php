@@ -36,12 +36,14 @@ class ProfileController extends Controller
     }
 
 
-    public function editProfilePic(Request $request, $id){
+    public function editProfilePic($id){
         $data = Auth::user();
         if(isset($data) && $data->id !=''){
             $userProfile = ProfileDetails::where('user_id',$id)->get()->first();
             $profilePic = ProfileDetails::where('user_id',$id)->get()->first();
-            return view('auth.profile.profile-image-edit', compact('profilePic', 'userProfile'));
+            if($profilePic->photo_path == null || $profilePic->photo_path !=null ){
+                return view('auth.profile.profile-image-edit', compact('profilePic', 'userProfile'));
+            }
         }else{
             return redirect()->route('login')->with('success','Session destroy please login');
         }
@@ -240,16 +242,18 @@ class ProfileController extends Controller
         }
     }
 
-    public function editSpecialization($id){
+    public function editSpecialization(Request $request, $id){
         $data = Auth::user();
         if(isset($data) && $data->id !=''){
+            $id = $request->id;
             $userProfile = ProfileDetails::where('user_id',$id)->get()->first();
-            $editSpecialData = UserSpcl::where('user_id', $id)->get();
+            $editSpecialData = UserSpcl::where('user_id',$id)->get();
+            $pecialData = $editSpecialData->pluck('user_id');
             $spclMast = SpclMast::get();
-            if(!empty($editSpecialData) && $editSpecialData !=''){
+            if(!empty($pecialData) && count($pecialData) > 0){
                 return view('auth.profile.specilization-edit', compact('spclMast', 'editSpecialData', 'userProfile'));
             }else{
-                return redirect('/user/profile/')->with('success','Please add the specialization first');
+                return redirect('/user/profile/')->with('success','Please add the specilization first');
             }
         }else{
             return redirect()->route('login')->with('success','Session destroy please login');
@@ -353,7 +357,7 @@ class ProfileController extends Controller
         if(isset($data) && $data->id !=''){
             $id = $request->id;
             $userProfile = ProfileDetails::where('user_id',$id)->get()->first();
-            $catgQualMast = CategoryQualMast::all();
+            $catgQualMast = QualificationMast::all();
             $qualEdit = UserQualMast::where('user_id',$id)->get()->first();
             if(!empty($qualEdit) && $qualEdit->user_id !=''){
                 return view('auth.profile.education-edit', compact('qualEdit', 'catgQualMast', 'userProfile'));
@@ -372,8 +376,8 @@ class ProfileController extends Controller
             $UserQualMast = QualificationMast::where('qual_code',$qualCode)->get()->first();
             $user_id = $data->id; 
             $UserQualMa =  UserQualMast::where('user_id', $user_id)->update([
-                'qual_code' => $qualCode,
-                'qual_catg_code' => $request->qualCode,
+                'qual_code' => $request->qual_desc,
+                'qual_catg_code' => $request->qual_catg_code,
                 'qual_catg_desc' => $UserQualMast->qual_catg_desc,
                 'qual_desc' => $UserQualMast->qual_desc,
                 'pass_year' => $request->pass_year,
@@ -400,7 +404,7 @@ class ProfileController extends Controller
 
     public function getCourt(Request $request){
         $data['courtMast'] = CourtMast::where("court_type_code", $request->court_type_code)
-        ->get()->first();
+        ->get();
         return response()->json($data);
     }
 
@@ -442,13 +446,14 @@ class ProfileController extends Controller
     public function editPrectecingCourt(Request $request, $id){
         $data = Auth::user();
         if(isset($data) && $data->id !=''){
+            $id = $request->id;
             $userProfile = ProfileDetails::where('user_id',$id)->get()->first();
             $editCourtData = UserCourts::where(['user_id'=> $id])->get();
-            $courtEdit = UserCourts::where(['user_id'=> $id])->get()->first();
-            $getCourt = courtTypeMast::all();
-            $getCourtMast = CourtMast::all();
-            if(!empty($editCourtData) && $editCourtData !=''){
-                return view('auth.profile.practecing-court-edit', compact('courtEdit', 'getCourt', 'userProfile', 'getCourtMast', 'editCourtData'));
+            $courtData  =  $editCourtData->pluck('user_id'); 
+            $getCourt = courtTypeMast::get();
+            $getCourtMast = CourtMast::get();
+            if(!empty($courtData ) && count($courtData ) > 0){
+                return view('auth.profile.practecing-court-edit', compact('getCourt', 'userProfile', 'getCourtMast', 'editCourtData'));
             }else{
                 return redirect('/user/profile/')->with('success','Please add the practecing court');
             }
@@ -485,15 +490,15 @@ class ProfileController extends Controller
                         ];
                     }
 
-                    // Delete the existing user specializations (if any)
+                    // Delete the existing user Prectecing court (if any)
                     UserCourts::where('user_id', $user_id)->delete();
 
-                    // Insert the updated user specializations
+                    // Insert the updated user Prectecing court
                     UserCourts::insert($courtDataName);
 
-                    return redirect('/user/profile')->with('success', 'Specializations updated successfully');
+                    return redirect('/user/profile')->with('success', 'Prectecing court updated successfully');
                 } else {
-                    return back()->with('error', 'No valid specializations selected');
+                    return back()->with('error', 'No valid Prectecing court selected');
                 }
             } else {
                 return back()->with('error', 'Please select at least one specialization');

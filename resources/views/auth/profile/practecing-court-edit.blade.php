@@ -47,10 +47,12 @@
               <div class="form-group">
                 <label>Court Type Name</label>
                 <select class="form-control" id="court-dropdown" name="court_type_code">
-                  @foreach ($getCourt as $court)
-                      <option value="{{ $court->court_type_code }}" @if ($court->court_type_code == $courtEdit->court_type_code) selected @endif>
-                          {{ $court->court_type_desc }}
-                      </option>
+                  @foreach ($editCourtData as $edit)
+                    @foreach ($getCourt as $court)
+                        <option value="{{ $court->court_type_code }}" @if ($court->court_type_code == $edit->court_type_code) selected @endif>
+                            {{ $court->court_type_desc }}
+                        </option>
+                    @endforeach
                   @endforeach
                 </select>
               </div>
